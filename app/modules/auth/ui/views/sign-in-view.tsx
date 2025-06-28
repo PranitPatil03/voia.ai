@@ -29,8 +29,7 @@ const formSchema = z.object({
 });
 
 export const SignInView = () => {
-  const rounter = useRouter();
-
+  const router = useRouter();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -51,11 +50,32 @@ export const SignInView = () => {
       {
         email: data.email,
         password: data.password,
+        callbackURL: "/",
       },
       {
         onSuccess: () => {
           setPending(false);
-          rounter.push("/");
+          router.push("/");
+        },
+        onError: ({ error }) => {
+          setError(error.message);
+        },
+      }
+    );
+  };
+
+  const onSoical = async (provider: "github" | "google") => {
+    setError(null);
+    setPending(true);
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setPending(false);
         },
         onError: ({ error }) => {
           setError(error.message);
@@ -178,6 +198,7 @@ export const SignInView = () => {
                       type="button"
                       className="w-full flex items-center justify-center gap-2 rounded-lg bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer"
                       disabled={pending}
+                      onClick={() => onSoical("google")}
                     >
                       <Image
                         src="/google.svg"
@@ -193,6 +214,7 @@ export const SignInView = () => {
                       type="button"
                       className="w-full flex items-center justify-center gap-2 rounded-lg bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer"
                       disabled={pending}
+                      onClick={() => onSoical("github")}
                     >
                       <Image
                         src="/github.svg"
