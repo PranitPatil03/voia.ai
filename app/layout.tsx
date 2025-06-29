@@ -7,6 +7,8 @@ import {
 } from "next/font/google";
 import "./globals.css";
 
+import { TRPCReactProvider } from "@/app/trpc/client";
+
 const cormorant = Cormorant({
   variable: "--font-cormorant",
   subsets: ["latin"],
@@ -43,12 +45,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${cormorant.variable} ${cormorantGaramond.variable} ${montserrat.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <TRPCReactProvider>
+      <html lang="en">
+        <body
+          className={`${inter.variable} ${cormorant.variable} ${cormorantGaramond.variable} ${montserrat.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </TRPCReactProvider>
   );
 }
