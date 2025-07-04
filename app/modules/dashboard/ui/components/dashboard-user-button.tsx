@@ -28,7 +28,7 @@ export const DashboardUserButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="shadow-md flex items-center gap-2 p-2 rounded-md bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-0">
+      <DropdownMenuTrigger className="shadow-md flex items-center gap-2 p-2 transition-colors duration-200 border border-gray-200 dark:border-none focus:outline-none focus:ring-0 dark:bg-sidebar-accent rounded-xl">
         {data.user.image ? (
           <Avatar className="size-9">
             <AvatarImage
@@ -53,7 +53,7 @@ export const DashboardUserButton = () => {
           </span>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-56 rounded-xl" align="end" forceMount>
         <DropdownMenuLabel className="font-normal w-full">
           <div className="flex flex-col space-y-1 min-w-0">
             <p className="text-sm font-medium leading-none truncate max-w-[180px]">

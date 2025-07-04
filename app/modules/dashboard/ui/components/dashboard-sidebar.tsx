@@ -44,13 +44,26 @@ export const DashboardSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <Sidebar className="!bg-gray-700">
-      <SidebarHeader className="text-sidebar-accent-foreground">
+    <Sidebar className="bg-sidebar">
+      <SidebarHeader className="text-sidebar-foreground">
         <Link href="/" className="flex items-center gap-2 px-2 pt-2">
-          <Image src="/logo.svg" height={78} width={78} alt="logo"></Image>
+          <Image
+            src="/logo.svg"
+            alt="logo"
+            height={78}
+            width={78}
+            className="block dark:hidden"
+          />
+          <Image
+            src="/light-logo.svg"
+            alt="logo"
+            height={78}
+            width={78}
+            className="hidden dark:block"
+          />
         </Link>
       </SidebarHeader>
-      <div className="px-3 border-b pt-1 opacity-75"></div>
+      <div className="px-1 border-b border-sidebar-border pt-1 opacity-75 dark:border-sidebar-accent"></div>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -59,9 +72,9 @@ export const DashboardSidebar = () => {
                 <SidebarMenuItem key={item.href} className="py-1">
                   <SidebarMenuButton
                     className={cn(
-                      "h-10 hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600 transition-all duration-200 hover:shadow-sm",
+                      "h-10 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border border-transparent hover:border-sidebar-border transition-all duration-200 hover:shadow-sm dark:border-none rounded-xl",
                       pathname === item.href &&
-                        "h-10 bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:hover:border-gray-600 transition-all duration-200 shadow-sm"
+                        "h-10 bg-sidebar-accent text-sidebar-accent-foreground border border-sidebar-border transition-all duration-200 shadow-sm"
                     )}
                     asChild
                     isActive={pathname === item.href}
@@ -77,8 +90,8 @@ export const DashboardSidebar = () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <div className="px-4 py-2">
-            <Separator className="opacity-85 text-[#6d6f6e]"></Separator>
+          <div className="px-1 py-2">
+            <Separator className="opacity-85 bg-sidebar-border dark:bg-muted"></Separator>
           </div>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -86,9 +99,9 @@ export const DashboardSidebar = () => {
                 <SidebarMenuItem key={item.href} className="py-1">
                   <SidebarMenuButton
                     className={cn(
-                      "h-10 hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600 transition-all duration-200 hover:shadow-sm",
+                      "h-10 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border border-transparent hover:border-sidebar-border transition-all duration-200 hover:shadow-sm dark:border-none rounded-xl",
                       pathname === item.href &&
-                        "h-10 bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:hover:border-gray-600 transition-all duration-200 shadow-sm"
+                        "h-10 bg-sidebar-accent text-sidebar-accent-foreground border border-sidebar-border transition-all duration-200 shadow-sm dark:border-none"
                     )}
                     asChild
                     isActive={pathname === item.href}
@@ -107,7 +120,7 @@ export const DashboardSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="text-gray-400">
+      <SidebarFooter className="">
         <DashboardUserButton></DashboardUserButton>
       </SidebarFooter>
     </Sidebar>

@@ -5,6 +5,7 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { PanelLeftCloseIcon, PanelLeftIcon } from "lucide-react";
 import { SearchIcon } from "lucide-react";
 import { DashboardCommand } from "./dashboard-command";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useEffect, useState } from "react";
 
 const DashboardNavbar = () => {
@@ -38,7 +39,7 @@ const DashboardNavbar = () => {
             <PanelLeftCloseIcon />
           )}
         </Button>
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex items-center gap-2">
           <Button
             className="h-9 w-[280px] justify-start font-normal text-muted-foreground hover:text-muted-foreground"
             variant="outline"
@@ -51,6 +52,7 @@ const DashboardNavbar = () => {
               <span className="text-xs">&#8984;</span> K
             </kbd>
           </Button>
+          <ThemeToggle />
         </div>
       </nav>
     </>

@@ -8,6 +8,7 @@ import {
 import "./globals.css";
 
 import { TRPCReactProvider } from "@/app/trpc/client";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const cormorant = Cormorant({
   variable: "--font-cormorant",
@@ -46,11 +47,18 @@ export default function RootLayout({
 }>) {
   return (
     <TRPCReactProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.variable} ${cormorant.variable} ${cormorantGaramond.variable} ${montserrat.variable} antialiased`}
         >
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </TRPCReactProvider>
