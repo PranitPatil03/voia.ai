@@ -1,3 +1,5 @@
+"use client";
+
 import { useTRPC } from "@/app/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 

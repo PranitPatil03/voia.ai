@@ -9,6 +9,7 @@ import "./globals.css";
 
 import { TRPCReactProvider } from "@/app/trpc/client";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const cormorant = Cormorant({
   variable: "--font-cormorant",
@@ -57,6 +58,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster/>
             {children}
           </ThemeProvider>
         </body>
