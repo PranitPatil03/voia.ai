@@ -13,12 +13,25 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { LogOut, User, CreditCard } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const DashboardUserButton = () => {
   const router = useRouter();
   const { data, isPending } = authClient.useSession();
 
-  if (isPending || !data?.user) {
+  if (isPending) {
+    return (
+      <div className="shadow-md flex items-center gap-2 p-2 transition-colors duration-200 border border-gray-200 dark:border-none focus:outline-none focus:ring-0 dark:bg-sidebar-accent rounded-xl">
+        <Skeleton className="size-9 rounded-full" />
+        <div className="flex flex-col items-start min-w-0 gap-1">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-3 w-24" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!data?.user) {
     return null;
   }
 
@@ -91,5 +104,5 @@ export const DashboardUserButton = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  ); 
 };

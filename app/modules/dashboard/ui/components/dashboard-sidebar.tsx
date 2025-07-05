@@ -44,7 +44,7 @@ export const DashboardSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <Sidebar className="bg-sidebar">
+    <Sidebar>
       <SidebarHeader className="text-sidebar-foreground">
         <Link href="/" className="flex items-center gap-2 px-2 pt-2">
           <Image
@@ -63,7 +63,7 @@ export const DashboardSidebar = () => {
           />
         </Link>
       </SidebarHeader>
-      <div className="px-1 border-b border-sidebar-border pt-1 opacity-75 dark:border-sidebar-accent"></div>
+      <div className="px-1 border-b border-sidebar-border pt-1 dark:border-sidebar-accent"></div>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>

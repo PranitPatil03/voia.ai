@@ -101,22 +101,45 @@ export const SignInView = () => {
             alt="logo"
             width={92}
             height={92}
-            className="h-[92px] w-[92px] drop-shadow-lg"
+            className="h-[92px] w-[92px] drop-shadow-lg dark:hidden"
+          />
+          <Image
+            src="/light-logo.svg"
+            alt="logo"
+            width={92}
+            height={92}
+            className="h-[92px] w-[92px] drop-shadow-lg hidden dark:block"
           />
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center bg-background p-3 md:basis-[45%] md:max-w-[45%]">
-        <div className="w-full max-w-md bg-white/70 rounded-2xl">
+      <div className="flex-1 flex items-center justify-center p-3 md:basis-[45%] md:max-w-[45%] bg-sidebar">
+        <div className="w-full max-w-md rounded-2xl">
           <div className="grid p-0">
             <Form {...form}>
               <form className="p-6" onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col items-center text-center">
-                    <h1 className="text-2xl font-bold text-neutral-900">
-                      Welcome Back
-                    </h1>
-                    <p className="text-neutral-500 text-balance">
+                    <div className="flex items-center gap-3">
+                      <h1 className="text-3xl font-light text-neutral-900 dark:text-white">
+                        Welcome
+                      </h1>
+                      <Image
+                        src="/logo.svg"
+                        alt="logo"
+                        width={100}
+                        height={100}
+                        className="dark:hidden"
+                      />
+                      <Image
+                        src="/light-logo.svg"
+                        alt="logo"
+                        width={100}
+                        height={100}
+                        className="hidden dark:block"
+                      />
+                    </div>
+                    <p className="text-neutral-500 text-balance dark:text-white/35">
                       Login to your account
                     </p>
                   </div>
@@ -131,7 +154,7 @@ export const SignInView = () => {
                             <Input
                               type="email"
                               placeholder="john@mail.com"
-                              className="h-11 px-4 rounded-lg bg-white/80 border border-neutral-200 shadow focus:shadow-md transition-all duration-200 placeholder:text-neutral-400 text-neutral-900"
+                              className="h-11 px-4 rounded-xl bg-white/80 border border-neutral-200 dark:border-neutral-50 shadow focus:shadow-md transition-all duration-200 placeholder:text-neutral-400 text-neutral-900 dark:border-none dark:text-white"
                               {...field}
                             />
                           </FormControl>
@@ -152,7 +175,8 @@ export const SignInView = () => {
                               <Input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="********"
-                                className="h-11 px-4 rounded-lg bg-white/80 border border-neutral-200 shadow focus:shadow-md transition-all duration-200 placeholder:text-neutral-400 text-neutral-900 outline-none pr-10"
+                                className="h-11 px-4 rounded-xl bg-white/80 border border-neutral-200 shadow focus:shadow-md transition-all duration-200 placeholder:text-neutral-400 text-neutral-900 outline-none pr-10 dark:text-white dark:border-none
+                                "
                                 {...field}
                               />
                               <button
@@ -182,13 +206,13 @@ export const SignInView = () => {
                   )}
                   <Button
                     type="submit"
-                    className="w-full h-11 rounded-xl bg-neutral-900 text-white font-semibold shadow-lg hover:bg-neutral-800 transition-all duration-200 focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer"
+                    className="w-full h-11 rounded-xl text-white font-semibold shadow-lg transition-all duration-200 focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer"
                     disabled={pending}
                   >
                     Login
                   </Button>
                   <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                    <span className="bg-card text-muted-foreground relative z-10 px-2">
+                    <span className="bg-sidebar text-muted-foreground relative z-10 px-2">
                       Or continue with
                     </span>
                   </div>
@@ -196,7 +220,7 @@ export const SignInView = () => {
                     <Button
                       variant="outline"
                       type="button"
-                      className="w-full flex items-center justify-center gap-2 rounded-lg bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer"
                       disabled={pending}
                       onClick={() => onSoical("google")}
                     >
@@ -212,7 +236,7 @@ export const SignInView = () => {
                     <Button
                       variant="outline"
                       type="button"
-                      className="w-full flex items-center justify-center gap-2 rounded-lg bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 bg-white/80 border border-neutral-200 shadow hover:bg-neutral-100 transition-all duration-200 cursor-pointer rounded-xl"
                       disabled={pending}
                       onClick={() => onSoical("github")}
                     >

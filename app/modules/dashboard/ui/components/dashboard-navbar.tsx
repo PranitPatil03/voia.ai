@@ -31,7 +31,7 @@ const DashboardNavbar = () => {
         open={commandOpen}
         setOpen={setCommandOpen}
       ></DashboardCommand>
-      <nav className="flex px-4 gap-x-2 items-center py-[11px] border-b bg-background opacity-75">
+      <nav className="flex px-4 gap-x-2 items-center py-[11px] border-b">
         <Button className="size-8" variant="outline" onClick={toggleSidebar}>
           {state === "collapsed" || isMobile ? (
             <PanelLeftIcon />
@@ -41,7 +41,7 @@ const DashboardNavbar = () => {
         </Button>
         <div className="ml-auto flex items-center gap-2">
           <Button
-            className="h-9 w-[280px] justify-start font-normal text-muted-foreground hover:text-muted-foreground"
+            className="h-9 w-[280px] justify-start font-normal text-muted-foreground hover:text-muted-foreground rounded-xl"
             variant="outline"
             size="sm"
             onClick={() => setCommandOpen((open) => !open)}
