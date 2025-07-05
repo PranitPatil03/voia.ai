@@ -106,7 +106,7 @@ export const SignInView = () => {
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center bg-background p-3 basis-[45%] max-w-[45%]">
+      <div className="flex-1 flex items-center justify-center bg-background p-3 md:basis-[45%] md:max-w-[45%]">
         <div className="w-full max-w-md bg-white/70 rounded-2xl">
           <div className="grid p-0">
             <Form {...form}>
