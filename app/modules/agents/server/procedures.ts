@@ -1,8 +1,9 @@
-import { db } from "@/app/db";
-import { agents } from "@/app/db/schema";
-import { createTRPCRouter, protectedProcedure } from "@/app/trpc/init";
-import { agentInsertSchema, agentUpdateSchema } from "../schemas";
 import { z } from "zod";
+import { db } from "@/app/db";
+import { TRPCError } from "@trpc/server";
+import { agents } from "@/app/db/schema";
+import { agentInsertSchema, agentUpdateSchema } from "../schemas";
+import { createTRPCRouter, protectedProcedure } from "@/app/trpc/init";
 import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
 import {
   DEFAULT_PAGE,
@@ -10,7 +11,6 @@ import {
   MAX_PAGE_SIZE,
   MIN_PAGE_SIZE,
 } from "@/constants";
-import { TRPCError } from "@trpc/server";
 
 export const agentsRouter = createTRPCRouter({
   update: protectedProcedure
