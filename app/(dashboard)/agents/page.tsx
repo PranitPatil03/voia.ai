@@ -9,6 +9,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { AgentViews } from "@/app/modules/agents/ui/views/agent-view";
 import { AgentListHeader } from "@/app/modules/agents/ui/components/agent-list-view";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { AgentIdViewLoading } from "@/app/modules/agents/ui/views/agent-id-view";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -34,7 +35,7 @@ const Page = async ({ searchParams }: Props) => {
     <NuqsAdapter>
       <AgentListHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<p>Hello</p>}>
+        <Suspense fallback={<AgentIdViewLoading />}>
           <AgentViews />
         </Suspense>
       </HydrationBoundary>

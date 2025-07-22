@@ -27,7 +27,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-xl border bg-background overflow-hidden">
+    <div className="rounded-xl border bg-background overflow-hidden cursor-pointer">
       <Table>
         <TableBody>
           {table.getRowModel().rows?.length ? (
