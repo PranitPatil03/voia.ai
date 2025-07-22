@@ -17,23 +17,28 @@ export const AgentViews = () => {
     trpc.agents.getMany.queryOptions({ ...filters })
   );
 
+  const isEmpty = data.items.length === 0;
+
   return (
     <div className="pb-4 px-4 flex flex-col gap-y-4">
-      <DataTable
-        columns={columns}
-        data={data.items}
-        onRowClick={(row) => rounter.push(`agents/${row.id}`)}
-      />
-      <DataPagination
-        page={filters.page}
-        totalPages={data.totalPages}
-        onPageChange={(page) => setFilters({ page })}
-      />
-      {data.items.length === 0 && (
+      {isEmpty ? (
         <EmptyState
           title="No agents found"
           description="Create your first AI agent to start automating your meetings and tasks. Agents can help you with scheduling and more."
         />
+      ) : (
+        <>
+          <DataTable
+            columns={columns}
+            data={data.items}
+            onRowClick={(row) => rounter.push(`agents/${row.id}`)}
+          />
+          <DataPagination
+            page={filters.page}
+            totalPages={data.totalPages}
+            onPageChange={(page) => setFilters({ page })}
+          />
+        </>
       )}
     </div>
   );

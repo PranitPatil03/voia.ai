@@ -36,7 +36,23 @@ export const AgentForm = ({
   const createAgent = useMutation(
     tprc.agents.create.mutationOptions({
       onSuccess: async () => {
-        await queryClient.invalidateQueries(tprc.agents.getMany.queryOptions({}));
+        await queryClient.invalidateQueries(
+          tprc.agents.getMany.queryOptions({})
+        );
+        onSuccess?.();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    })
+  );
+
+  const updateAgent = useMutation(
+    tprc.agents.update.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          tprc.agents.getMany.queryOptions({})
+        );
 
         if (initialValues?.id) {
           await queryClient.invalidateQueries(
@@ -60,11 +76,11 @@ export const AgentForm = ({
   });
 
   const isEdit = !!initialValues?.id;
-  const isPending = createAgent.isPending;
+  const isPending = createAgent.isPending || updateAgent.isPending;
 
   const onSubmit = (values: z.infer<typeof agentInsertSchema>) => {
     if (isEdit) {
-      console.log("update");
+      updateAgent.mutate({ ...values, id: initialValues.id });
     } else {
       createAgent.mutate(values);
     }
@@ -122,13 +138,13 @@ export const AgentForm = ({
               disabled={isPending}
               type="button"
               onClick={() => onCancel()}
-              className="rounded-xl"
+              className="rounded-xl border"
             >
               Cancel
             </Button>
           )}
           <Button disabled={isPending} type="submit" className="rounded-xl">
-            {isEdit ? "update" : "Create"}
+            {isEdit ? "Update" : "Create"}
           </Button>
         </div>
       </form>

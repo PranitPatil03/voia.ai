@@ -7,6 +7,8 @@ import { useAgentFilters } from "../../hooks/use-agents-filter";
 import { PlusIcon, XCircle } from "lucide-react";
 import { AgentSearchFilter } from "./agents-search-filter";
 import { DEFAULT_PAGE } from "@/constants";
+import { useTRPC } from "@/app/trpc/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const AgentListHeader = () => {
   const [filters, setFilters] = useAgentFilters();
@@ -21,6 +23,13 @@ export const AgentListHeader = () => {
     });
   };
 
+  const trpc = useTRPC();
+  const { data } = useSuspenseQuery(
+    trpc.agents.getMany.queryOptions({ ...filters })
+  );
+
+  const isEmpty = data.items.length === 0;
+
   return (
     <>
       <NewAgentDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
@@ -34,17 +43,23 @@ export const AgentListHeader = () => {
         </div>
       </div>
       <div className="flex items-center gap-x-2 px-4 py-2">
-        <AgentSearchFilter />
-        {isAnyFilterModified && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onClearFilters}
-            className="rounded-xl"
-          >
-            <XCircle />
-            Clear
-          </Button>
+        {isEmpty ? (
+          <></>
+        ) : (
+          <>
+            <AgentSearchFilter />
+            {isAnyFilterModified && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onClearFilters}
+                className="rounded-xl"
+              >
+                <XCircle />
+                Clear
+              </Button>
+            )}
+          </>
         )}
       </div>
     </>
