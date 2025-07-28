@@ -1,5 +1,5 @@
 import { useTRPC } from "@/app/trpc/client";
-import { MeetingGetOne } from "../../types";
+import { MeetingGetOne, MeetingStauts } from "../../types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { meetingInsertSchema } from "../../schemas";
@@ -21,6 +21,13 @@ import { useState } from "react";
 import { CommandSelect } from "@/components/commad-select";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { NewAgentDialog } from "@/app/modules/agents/ui/components/new-agent-dialog";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface MeetingFormProps {
   onSuccess?: (id?: string) => void;
@@ -63,9 +70,9 @@ export const MeetingForm = ({
   const updateMeeting = useMutation(
     tprc.meetings.update.mutationOptions({
       onSuccess: async () => {
-        await queryClient.invalidateQueries(
-          tprc.meetings.getMany.queryOptions({})
-        );
+        // await queryClient.invalidateQueries(
+        //   tprc.meetings.getMany.queryOptions({})
+        // );
 
         if (initialValues?.id) {
           await queryClient.invalidateQueries(
@@ -85,6 +92,7 @@ export const MeetingForm = ({
     defaultValues: {
       name: initialValues?.name ?? "",
       agentId: initialValues?.agentId ?? "",
+      status: initialValues?.status as MeetingStauts | undefined,
     },
   });
 
@@ -93,7 +101,7 @@ export const MeetingForm = ({
 
   const onSubmit = (values: z.infer<typeof meetingInsertSchema>) => {
     if (isEdit) {
-      updateMeeting.mutate({ ...values, agentId: initialValues.id });
+      updateMeeting.mutate({ ...values, id: initialValues.id });
     } else {
       createMeeting.mutate(values);
     }
@@ -166,6 +174,30 @@ export const MeetingForm = ({
                     Create new Agent
                   </button>
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="status"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Status</FormLabel>
+                <FormControl>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.values(MeetingStauts).map((status) => (
+                        <SelectItem key={status} value={status}>
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
