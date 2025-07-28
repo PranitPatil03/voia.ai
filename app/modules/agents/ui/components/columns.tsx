@@ -4,6 +4,7 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 import { CornerDownRightIcon, VideoIcon } from "lucide-react";
+import { AgentGetMany } from "../../types";
 
 export type Agent = {
   id: string;
@@ -15,7 +16,7 @@ export type Agent = {
   meetingCount?: number;
 };
 
-export const columns: ColumnDef<Agent>[] = [
+export const columns: ColumnDef<AgentGetMany[number]>[] = [
   {
     accessorKey: "name",
     header: "Agent Name",

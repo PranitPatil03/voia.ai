@@ -15,7 +15,7 @@ export const MeetingsListHeader = () => {
         onOpenChange={setIsDialogOpen}
       ></NewMeetingDialog>
       <div className="py-4 px-4 flex flex-col gap-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-4">
           <h5 className="font-medium text-xl">My Meetings</h5>
           <Button onClick={() => setIsDialogOpen(true)} className="rounded-xl">
             <PlusIcon />
