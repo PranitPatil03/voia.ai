@@ -14,8 +14,17 @@ import { MeetingsListHeader } from "@/app/modules/meetings/ui/components/meeting
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { loadSearchParams } from "@/app/modules/meetings/params";
+import type { SearchParams } from "nuqs/server";
 
-export default async function Page() {
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function Page({ searchParams }: Props) {
+  const filters = await loadSearchParams(searchParams);
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -25,10 +34,14 @@ export default async function Page() {
   }
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(trpc.meetings.getMany.queryOptions({}));
+  await queryClient.prefetchQuery(
+    trpc.meetings.getMany.queryOptions({
+      ...filters,
+    })
+  );
 
   return (
-    <>
+    <NuqsAdapter>
       <MeetingsListHeader></MeetingsListHeader>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense fallback={<MeetingtIdViewLoading />}>
@@ -37,6 +50,6 @@ export default async function Page() {
           </ErrorBoundary>
         </Suspense>
       </HydrationBoundary>
-    </>
+    </NuqsAdapter>
   );
 }
